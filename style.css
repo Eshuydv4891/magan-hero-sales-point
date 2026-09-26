@@ -135,7 +135,7 @@ body{margin:0;font-family:Inter,Arial,sans-serif;color:var(--dark);background:#f
 
 
 
-footer
+/* footer
 {
     background:#101114;
     color:#fff;
@@ -155,6 +155,484 @@ footer p
 footer a
 {
     color:#fff
+} */
+
+/* ==========================================
+   MAGAN HERO FOOTER
+========================================== */
+
+.site-footer {
+    width: 100%;
+    box-sizing: border-box;
+
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr 1.3fr;
+
+    gap: 60px;
+
+    padding: 65px 7% 40px;
+
+    background:
+        radial-gradient(
+            circle at 85% 30%,
+            rgba(227, 24, 32, 0.14),
+            transparent 35%
+        ),
+        #101114;
+
+    color: #ffffff;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+/* Top Red Border */
+
+.site-footer::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background: #e31820;
+}
+
+
+/* ==========================================
+   BRAND
+========================================== */
+
+.footer-brand {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+}
+
+.footer-logo {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    text-decoration: none;
+
+    font-size: 36px;
+
+    font-weight: 900;
+
+    color: #ffffff;
+}
+
+.footer-logo .logo-h {
+    color: #e31820;
+}
+
+.footer-description {
+    margin: 15px 0 0;
+
+    color: #c7c9ce;
+
+    font-size: 15px;
+}
+
+.footer-red-line {
+    width: 70px;
+
+    height: 3px;
+
+    margin-top: 22px;
+
+    background: #e31820;
+
+    border-radius: 20px;
+}
+
+.footer-copyright {
+    margin-top: 22px;
+
+    color: #858991;
+
+    font-size: 12px;
+}
+
+
+/* ==========================================
+   QUICK LINKS
+========================================== */
+
+.footer-links h3 {
+    margin: 0 0 20px;
+
+    font-size: 20px;
+
+    color: #ffffff;
+}
+
+.footer-links ul {
+    list-style: none;
+
+    margin: 0;
+
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+}
+
+.footer-links a {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    text-decoration: none;
+
+    color: #c7c9ce;
+
+    font-size: 14px;
+
+    transition: all 0.25s ease;
+}
+
+.footer-links a span {
+    color: #e31820;
+
+    font-size: 20px;
+
+    line-height: 0;
+}
+
+.footer-links a:hover {
+    color: #ffffff;
+
+    transform: translateX(5px);
+}
+
+
+/* ==========================================
+   DEVELOPER SECTION
+========================================== */
+
+.developer-section {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+}
+
+
+/* Developer Card */
+
+.developer-card {
+    width: 100%;
+
+    max-width: 430px;
+
+    min-height: 125px;
+
+    box-sizing: border-box;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    padding: 17px 20px;
+
+    background: #ffffff;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.35);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.developer-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 18px 45px rgba(227, 24, 32, 0.22);
+}
+
+
+/* ==========================================
+   DEVELOPER PHOTO
+========================================== */
+
+.developer-photo {
+    width: 105px;
+
+    height: 105px;
+
+    min-width: 105px;
+
+    border-radius: 50%;
+
+    padding: 4px;
+
+    box-sizing: border-box;
+
+    background: linear-gradient(
+        135deg,
+        #e31820,
+        #ff5b61
+    );
+
+    box-shadow:
+        0 5px 20px rgba(227, 24, 32, 0.35);
+
+    overflow: hidden;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+.developer-photo img {
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    object-position: center top;
+
+    border-radius: 50%;
+
+    border: 3px solid #ffffff;
+
+    box-sizing: border-box;
+}
+
+
+/* Agar photo load na ho */
+
+.developer-photo.photo-error::after {
+    content: "EY";
+
+    width: 100%;
+
+    height: 100%;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #e31820;
+
+    color: #ffffff;
+
+    font-size: 28px;
+
+    font-weight: 900;
+}
+
+
+/* ==========================================
+   DEVELOPER TEXT
+========================================== */
+
+.developer-info {
+    min-width: 0;
+}
+
+.created-label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #777b83;
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+}
+
+.developer-info h3 {
+    margin: 0;
+
+    color: #111318;
+
+    font-size: 25px;
+
+    font-weight: 900;
+
+    line-height: 1.1;
+}
+
+.developer-info p {
+    margin: 6px 0;
+
+    color: #e31820;
+
+    font-size: 14px;
+
+    font-weight: 800;
+}
+
+.developer-info small {
+    display: block;
+
+    color: #777b83;
+
+    font-size: 10px;
+
+    line-height: 1.4;
+}
+
+
+/* ==========================================
+   DEVELOPER CREDIT
+========================================== */
+
+.developer-credit {
+    margin-top: 14px;
+
+    padding-left: 5px;
+
+    color: #858991;
+
+    font-size: 11px;
+}
+
+.developer-credit span {
+    color: #e31820;
+
+    font-size: 16px;
+
+    display: inline-block;
+
+    animation: heartbeat 1.3s infinite;
+}
+
+
+/* Heart Animation */
+
+@keyframes heartbeat {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.25);
+    }
+}
+
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 1000px) {
+
+    .site-footer {
+        grid-template-columns: 1fr 1fr;
+
+        gap: 40px;
+    }
+
+    .developer-section {
+        grid-column: 1 / -1;
+    }
+
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 700px) {
+
+    .site-footer {
+        grid-template-columns: 1fr;
+
+        gap: 35px;
+
+        padding: 50px 7% 40px;
+    }
+
+    .developer-section {
+        grid-column: auto;
+    }
+
+    .developer-card {
+        max-width: 100%;
+    }
+
+}
+
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media (max-width: 450px) {
+
+    .site-footer {
+        padding-left: 5%;
+
+        padding-right: 5%;
+    }
+
+    .developer-card {
+        flex-direction: column;
+
+        text-align: center;
+
+        padding: 25px 15px;
+    }
+
+    .developer-photo {
+        width: 100px;
+
+        height: 100px;
+
+        min-width: 100px;
+    }
+
+    .developer-info {
+        width: 100%;
+    }
+
+    .developer-credit {
+        width: 100%;
+
+        text-align: center;
+
+        padding-left: 0;
+    }
+
 }
 
 .mobile-cta
@@ -271,6 +749,12 @@ footer a
     overflow:hidden
 }
 
+.developer-card.developer-active {
+    transform: translateY(-6px) scale(1.01);
+
+    box-shadow:
+        0 22px 60px rgba(227, 24, 32, 0.25);
+}
 
 
 

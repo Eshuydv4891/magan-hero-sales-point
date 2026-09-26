@@ -93,3 +93,68 @@ const nav=document.getElementById('nav');
 menu.addEventListener('click',()=>nav.classList.toggle('open'));
 nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
 render();
+
+
+/* =========================================
+   FOOTER JAVASCRIPT
+========================================= */
+
+// Automatically show current year
+const footerYear = document.getElementById("footerYear");
+
+if (footerYear) {
+    footerYear.textContent = new Date().getFullYear();
+}
+
+
+/* Developer Card Click Effect */
+
+const developerCard =
+    document.querySelector(".developer-card");
+
+if (developerCard) {
+
+    developerCard.addEventListener("click", function () {
+
+        this.classList.toggle("developer-active");
+
+    });
+
+}
+
+/* ==========================================
+   FOOTER JAVASCRIPT
+========================================== */
+
+// Current Year
+const footerYear = document.getElementById("footerYear");
+
+if (footerYear) {
+    footerYear.textContent = new Date().getFullYear();
+}
+
+
+// Smooth Scroll for Footer Links
+document.querySelectorAll(".site-footer a[href^='#']")
+    .forEach(link => {
+
+        link.addEventListener("click", function (e) {
+
+            const targetId = this.getAttribute("href");
+
+            const target = document.querySelector(targetId);
+
+            if (target) {
+
+                e.preventDefault();
+
+                target.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            }
+
+        });
+
+    });
