@@ -20,9 +20,11 @@
       <a href="#offers">Offers</a>
       <a href="#services">Services</a>
       <a href="#dealer">Directors</a>
+      <a href="#blogs">Blogs</a>
       <a href="#contact">Contact</a>
     </nav>
     <a class="btn btn-red desktop-call" href="tel:9897561012">Call 98975 61012</a>
+  
   </header>
 
   <main>
@@ -154,25 +156,431 @@
       </div>
     </section>
 
-    <section class="showroom section">
+    <!-- =====================================================
+     BLOG SECTION
+     Add this section BEFORE CONTACT SECTION
+     ===================================================== -->
+
+      <section class="blog-section" id="blogs">
+
+          <div class="blog-container">
+
+              <!-- Blog Heading -->
+              <div class="blog-heading">
+
+                  <span class="blog-small-title">
+                      LATEST UPDATES
+                  </span>
+
+                  <h2>
+                      Magan Hero <span>Blogs</span>
+                  </h2>
+
+                  <p>
+                      Latest bikes, scooters, offers, riding tips
+                      and updates from Magan Hero.
+                  </p>
+
+              </div>
+
+
+              <!-- Search + Filter -->
+              <div class="blog-controls">
+
+                  <div class="blog-search">
+
+                      <input
+                          type="text"
+                          id="blogSearch"
+                          placeholder="Search blogs..."
+                          autocomplete="off"
+                      >
+
+                      <span>🔍</span>
+
+                  </div>
+
+
+                  <div class="blog-filter">
+
+                      <button
+                          class="blog-filter-btn active"
+                          data-category="All"
+                      >
+                          All
+                      </button>
+
+                      <button
+                          class="blog-filter-btn"
+                          data-category="Bikes"
+                      >
+                          Bikes
+                      </button>
+
+                      <button
+                          class="blog-filter-btn"
+                          data-category="Scooters"
+                      >
+                          Scooters
+                      </button>
+
+                      <button
+                          class="blog-filter-btn"
+                          data-category="Offers"
+                      >
+                          Offers
+                      </button>
+
+                      <button
+                          class="blog-filter-btn"
+                          data-category="Tips"
+                      >
+                          Tips
+                      </button>
+
+                  </div>
+
+              </div>
+
+
+              <!-- Blog Cards -->
+              <div
+                  class="blog-grid"
+                  id="blogGrid"
+              >
+                  <!-- JavaScript blogs will appear here -->
+              </div>
+
+
+              <!-- No Blog Message -->
+              <div
+                  class="blog-no-result"
+                  id="blogNoResult"
+                  style="display:none;"
+              >
+                  <h3>No blogs found</h3>
+
+                  <p>
+                      Try another search or category.
+                  </p>
+              </div>
+
+
+              <!-- =================================================
+                  ADMIN PANEL
+                  ================================================= -->
+
+              <div
+                  class="blog-admin-panel"
+                  id="blogAdminPanel"
+              >
+
+                  <div class="blog-admin-header">
+
+                      <div>
+
+                          <span>
+                              ADMIN PANEL
+                          </span>
+
+                          <h3>
+                              Manage Blogs
+                          </h3>
+
+                      </div>
+
+                      <button
+                          type="button"
+                          id="closeBlogAdmin"
+                          class="blog-admin-close"
+                      >
+                          ✕
+                      </button>
+
+                  </div>
+
+
+                  <!-- Add / Edit Blog Form -->
+
+                  <form
+                      id="blogForm"
+                      class="blog-form"
+                  >
+
+                      <input
+                          type="hidden"
+                          id="blogEditId"
+                      >
+
+
+                      <div class="blog-form-group">
+
+                          <label>
+                              Blog Title
+                          </label>
+
+                          <input
+                              type="text"
+                              id="blogTitle"
+                              placeholder="Enter blog title"
+                              required
+                          >
+
+                      </div>
+
+
+                      <div class="blog-form-row">
+
+                          <div class="blog-form-group">
+
+                              <label>
+                                  Category
+                              </label>
+
+                              <select
+                                  id="blogCategory"
+                                  required
+                              >
+
+                                  <option value="Bikes">
+                                      Bikes
+                                  </option>
+
+                                  <option value="Scooters">
+                                      Scooters
+                                  </option>
+
+                                  <option value="Offers">
+                                      Offers
+                                  </option>
+
+                                  <option value="Tips">
+                                      Tips
+                                  </option>
+
+                              </select>
+
+                          </div>
+
+
+                          <div class="blog-form-group">
+
+                              <label>
+                                  Date
+                              </label>
+
+                              <input
+                                  type="date"
+                                  id="blogDate"
+                                  required
+                              >
+
+                          </div>
+
+                      </div>
+
+
+                      <div class="blog-form-group">
+
+                          <label>
+                              Image URL / Image Path
+                          </label>
+
+                          <input
+                              type="text"
+                              id="blogImage"
+                              placeholder="images/blog1.jpg"
+                              required
+                          >
+
+                          <small>
+                              Example:
+                              images/blog1.jpg
+                          </small>
+
+                      </div>
+
+
+                      <div class="blog-form-group">
+
+                          <label>
+                              Short Description
+                          </label>
+
+                          <textarea
+                              id="blogDescription"
+                              rows="3"
+                              placeholder="Enter short description"
+                              required
+                          ></textarea>
+
+                      </div>
+
+
+                      <div class="blog-form-group">
+
+                          <label>
+                              Full Blog Content
+                          </label>
+
+                          <textarea
+                              id="blogContent"
+                              rows="6"
+                              placeholder="Enter complete blog content"
+                              required
+                          ></textarea>
+
+                      </div>
+
+
+                      <div class="blog-form-actions">
+
+                          <button
+                              type="submit"
+                              class="blog-save-btn"
+                          >
+                              💾 Save Blog
+                          </button>
+
+                          <button
+                              type="button"
+                              id="cancelBlogEdit"
+                              class="blog-cancel-btn"
+                          >
+                              Cancel
+                          </button>
+
+                      </div>
+
+                  </form>
+
+
+                  <!-- Admin Blog List -->
+
+                  <div class="blog-admin-list">
+
+                      <h4>
+                          Existing Blogs
+                      </h4>
+
+                      <div
+                          id="blogAdminList"
+                      >
+                      </div>
+
+                  </div>
+
+              </div>
+
+
+              <!-- Admin Button -->
+
+              <!-- <button
+                  type="button"
+                  id="openBlogAdmin"
+                  class="blog-admin-open"
+              >
+                  ⚙️ Admin
+              </button> -->
+
+          </div>
+
+      </section>
+
+
+      <!-- =====================================================
+          BLOG DETAIL MODAL
+          ===================================================== -->
+
+      <div
+          class="blog-modal"
+          id="blogModal"
+      >
+
+          <div class="blog-modal-box">
+
+              <button
+                  type="button"
+                  id="closeBlogModal"
+                  class="blog-modal-close"
+              >
+                  ✕
+              </button>
+
+
+              <img
+                  id="blogModalImage"
+                  src=""
+                  alt="Blog Image"
+              >
+
+
+              <div class="blog-modal-content">
+
+                  <span
+                      id="blogModalCategory"
+                      class="blog-modal-category"
+                  >
+                  </span>
+
+
+                  <h2
+                      id="blogModalTitle"
+                  >
+                  </h2>
+
+
+                  <span
+                      id="blogModalDate"
+                      class="blog-modal-date"
+                  >
+                  </span>
+
+
+                  <p
+                      id="blogModalContent"
+                  >
+                  </p>
+
+
+                  <a
+                      id="blogModalWhatsapp"
+                      href="#"
+                      target="_blank"
+                      rel="noopener"
+                      class="blog-whatsapp-btn"
+                  >
+                      📱 WhatsApp Enquiry
+                  </a>
+
+              </div>
+
+          </div>
+
+      </div>
+
+    <section id ="contact" class="showroom section">
       <div class="showroom-copy">
         <p class="eyebrow red">VISIT OUR SHOWROOM</p>
         <h2>Magan Hero Sales Point</h2>
         <p class="address">Yadav market, Kanrau- Amanabad Chauraha, Jalesar Road, Agra, U.P.</p>
         <p><strong>Mob. No.:</strong> 98975 61012</p>
-        <div class="actions"><a class="btn btn-red" href="https://www.google.com/maps/search/?api=1&query=Yadav%20market%2C%20Kanrau%2C%20Amanabad%20Chauraha%2C%20Jalesar%20Road%2C%20Agra%2C%20Uttar%20Pradesh" target="_blank">Open in Google Maps</a><a class="btn btn-outline-red" href="tel:9897561012">Call Showroom</a></div>
+        <div class="actions"><a class="btn btn-red" href="https://www.google.com/maps/search/?api=1&query=Yadav%20market%2C%20Kanrau%2C%20Amanabad%20Chauraha%2C%20Jalesar%20Road%2C%20Agra%2C%20Uttar%20Pradesh" target="_blank">Open in Google Maps</a>
+          <a class="btn btn-outline-red" href="tel:9897561012">Call Showroom</a>
+          <a class="btn btn-red"  href="https://wa.me/919897561012" target="_blank"><b>WhatsApp</b></a>
+        </div>
       </div>
       <img src="images/showroom.jpg" alt="Magan Hero showroom in Agra">
     </section>
 
-    <section id="contact" class="contact section">
+    <!-- <section id="contact" class="contact section">
       <div class="center"><p class="eyebrow red">CONTACT</p><h2>Talk to Magan Hero</h2><p>Ask about current price, variants, availability, test ride, service or offers.</p></div>
       <div class="contact-grid">
         <a href="tel:9897561012"><span>📞</span><b>98975 61012</b><small>Call for enquiry</small></a>
         <a href="https://wa.me/919897561012" target="_blank"><span>💬</span><b>WhatsApp</b><small>Send an enquiry</small></a>
         <a href="https://www.google.com/maps/search/?api=1&query=Yadav%20market%2C%20Kanrau%2C%20Amanabad%20Chauraha%2C%20Jalesar%20Road%2C%20Agra%2C%20Uttar%20Pradesh" target="_blank"><span>📍</span><b>Agra, U.P.</b><small>Get directions</small></a>
       </div>
-    </section>
+    </section> -->
   </main>
 
   <!-- <footer>
@@ -245,6 +653,12 @@
             </li>
 
             <li>
+                <a href="#blogs">
+                    <span>›</span> Blogs
+                </a>
+            </li>
+
+            <li>
                 <a href="#contact">
                     <span>›</span> Contact
                 </a>
@@ -295,6 +709,14 @@
             Designed & Developed with
             <span>♥</span>
         </div>
+
+        <button
+                  type="button"
+                  id="openBlogAdmin"
+                  class="blog-admin-open"
+              >
+                  ⚙️ Admin
+              </button>
 
     </div>
 

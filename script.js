@@ -304,15 +304,15 @@ const products = [
 
 const modelPrices = {
 
-  'HF DELUXE': 59999,
+  'HF DELUXE': 62105,
 
-  'SPLENDOR+': 77349,
-  'SPLENDOR+ XTEC': 81537,
-  'SPLENDOR+ XTEC 2.0': 83967,
+  'SPLENDOR+': 83689,
+  'SPLENDOR+ XTEC': 82672,
+  'SPLENDOR+ XTEC 2.0': 85102,
 
-  'PASSION+': 80273,
+  'PASSION+': 81603,
 
-  'GLAMOUR': 81170,
+  'GLAMOUR': 82170,
   'GLAMOUR X': 90811,
 
   'SUPER SPLENDOR XTEC': 81518,
@@ -2453,3 +2453,1467 @@ render('all');
 console.log(
   'Magan Hero Phase 1 loaded successfully.'
 );
+
+
+/* =========================================================
+   MAGAN HERO BLOG SYSTEM
+   CRUD + SEARCH + FILTER + READ MORE
+   ========================================================= */
+
+
+/* =========================================================
+   1. DEFAULT BLOG DATA
+   ========================================================= */
+
+const defaultMaganBlogs = [
+
+    {
+        id: 1,
+
+        title:
+            "Latest Hero Bikes You Should Know About",
+
+        category:
+            "Bikes",
+
+        date:
+            "2026-10-08",
+
+        image:
+            "images/showroom.jpg",
+
+        description:
+            "Explore the latest Hero bikes, their features and important details.",
+
+        content:
+            "Discover the latest Hero motorcycles available at Magan Hero Sales & Service. Check models, features, variants and price information before making your choice."
+
+    },
+
+
+    {
+        id: 2,
+
+        title:
+            "Best Hero Scooters for Daily Riding",
+
+        category:
+            "Scooters",
+
+        date:
+            "2026-10-08",
+
+        image:
+            "images/dealer.png",
+
+        description:
+            "Find a practical Hero scooter for your daily travel needs.",
+
+        content:
+            "Hero scooters are designed for comfortable and convenient everyday riding. Visit Magan Hero Sales & Service to explore available models and variants."
+
+    },
+
+
+    {
+        id: 3,
+
+        title:
+            "How to Choose the Right Hero Bike",
+
+        category:
+            "Tips",
+
+        date:
+            "2026-10-08",
+
+        image:
+            "images/showroom.jpg",
+
+        description:
+            "Simple tips to help you select the right motorcycle for your needs.",
+
+        content:
+            "Before buying a motorcycle, consider your daily usage, mileage requirements, comfort, engine capacity, budget and available variants."
+
+    }
+
+];
+
+
+/* =========================================================
+   2. GET BLOGS FROM LOCAL STORAGE
+   ========================================================= */
+
+function getMaganBlogs() {
+
+    const savedBlogs =
+        localStorage.getItem(
+            "maganHeroBlogs"
+        );
+
+
+    if (savedBlogs) {
+
+        try {
+
+            return JSON.parse(
+                savedBlogs
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Blog data error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    localStorage.setItem(
+        "maganHeroBlogs",
+        JSON.stringify(
+            defaultMaganBlogs
+        )
+    );
+
+
+    return [
+        ...defaultMaganBlogs
+    ];
+
+}
+
+
+/* =========================================================
+   3. SAVE BLOGS
+   ========================================================= */
+
+function saveMaganBlogs(
+    blogs
+) {
+
+    localStorage.setItem(
+        "maganHeroBlogs",
+        JSON.stringify(
+            blogs
+        )
+    );
+
+}
+
+
+/* =========================================================
+   4. FORMAT DATE
+   ========================================================= */
+
+function formatBlogDate(
+    date
+) {
+
+    if (!date) {
+
+        return "";
+
+    }
+
+
+    const d =
+        new Date(
+            date + "T00:00:00"
+        );
+
+
+    return d.toLocaleDateString(
+        "en-IN",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+/* =========================================================
+   5. WHATSAPP LINK
+   ========================================================= */
+
+function getBlogWhatsAppLink(
+    blog
+) {
+
+    const message =
+
+        `Hello Magan Hero,\n\n` +
+
+        `I am interested in your blog:\n` +
+
+        `${blog.title}\n\n` +
+
+        `Please provide more information.`;
+
+
+    return (
+        "https://wa.me/919897561012?text=" +
+        encodeURIComponent(
+            message
+        )
+    );
+
+}
+
+
+/* =========================================================
+   6. RENDER BLOGS
+   ========================================================= */
+
+function renderMaganBlogs(
+    blogs
+) {
+
+    const grid =
+        document.getElementById(
+            "blogGrid"
+        );
+
+
+    const noResult =
+        document.getElementById(
+            "blogNoResult"
+        );
+
+
+    if (!grid) {
+
+        return;
+
+    }
+
+
+    grid.innerHTML = "";
+
+
+    if (
+        !blogs ||
+        blogs.length === 0
+    ) {
+
+        if (noResult) {
+
+            noResult.style.display =
+                "block";
+
+        }
+
+        return;
+
+    }
+
+
+    if (noResult) {
+
+        noResult.style.display =
+            "none";
+
+    }
+
+
+    blogs.forEach(
+        function (blog) {
+
+            const card =
+                document.createElement(
+                    "article"
+                );
+
+
+            card.className =
+                "blog-card";
+
+
+            card.innerHTML = `
+
+                <img
+
+                    class="blog-card-image"
+
+                    src="${blog.image}"
+
+                    alt="${escapeBlogHTML(
+                        blog.title
+                    )}"
+
+                    loading="lazy"
+
+                    onerror="
+                        this.src='images/showroom.jpg';
+                    "
+
+                >
+
+
+                <div
+                    class="blog-card-body"
+                >
+
+                    <div
+                        class="blog-card-meta"
+                    >
+
+                        <span
+                            class="blog-card-category"
+                        >
+                            ${escapeBlogHTML(
+                                blog.category
+                            )}
+                        </span>
+
+
+                        <span
+                            class="blog-card-date"
+                        >
+                            ${formatBlogDate(
+                                blog.date
+                            )}
+                        </span>
+
+                    </div>
+
+
+                    <h3>
+                        ${escapeBlogHTML(
+                            blog.title
+                        )}
+                    </h3>
+
+
+                    <p>
+                        ${escapeBlogHTML(
+                            blog.description
+                        )}
+                    </p>
+
+
+                    <button
+
+                        type="button"
+
+                        class="blog-read-more"
+
+                        data-blog-id="${blog.id}"
+
+                    >
+                        Read More →
+                    </button>
+
+                </div>
+
+            `;
+
+
+            grid.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   7. HTML SAFETY
+   ========================================================= */
+
+function escapeBlogHTML(
+    text
+) {
+
+    if (
+        text === null ||
+        text === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    return String(text)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================================
+   8. SEARCH + FILTER
+   ========================================================= */
+
+let activeBlogCategory =
+    "All";
+
+
+function filterMaganBlogs() {
+
+    const searchInput =
+        document.getElementById(
+            "blogSearch"
+        );
+
+
+    const search =
+        searchInput
+            ? searchInput.value
+                .trim()
+                .toLowerCase()
+            : "";
+
+
+    const blogs =
+        getMaganBlogs();
+
+
+    const filtered =
+        blogs.filter(
+            function (blog) {
+
+                const categoryMatch =
+
+                    activeBlogCategory ===
+                    "All" ||
+
+                    blog.category ===
+                    activeBlogCategory;
+
+
+                const text =
+
+                    (
+                        blog.title +
+                        " " +
+                        blog.description +
+                        " " +
+                        blog.content
+                    )
+                    .toLowerCase();
+
+
+                const searchMatch =
+                    !search ||
+                    text.includes(
+                        search
+                    );
+
+
+                return (
+                    categoryMatch &&
+                    searchMatch
+                );
+
+            }
+        );
+
+
+    renderMaganBlogs(
+        filtered
+    );
+
+}
+
+
+/* =========================================================
+   9. OPEN BLOG DETAILS
+   ========================================================= */
+
+function openMaganBlog(
+    id
+) {
+
+    const blogs =
+        getMaganBlogs();
+
+
+    const blog =
+        blogs.find(
+            function (item) {
+
+                return (
+                    Number(item.id) ===
+                    Number(id)
+                );
+
+            }
+        );
+
+
+    if (!blog) {
+
+        return;
+
+    }
+
+
+    const modal =
+        document.getElementById(
+            "blogModal"
+        );
+
+
+    if (!modal) {
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "blogModalImage"
+    ).src =
+        blog.image;
+
+
+    document.getElementById(
+        "blogModalTitle"
+    ).textContent =
+        blog.title;
+
+
+    document.getElementById(
+        "blogModalCategory"
+    ).textContent =
+        blog.category;
+
+
+    document.getElementById(
+        "blogModalDate"
+    ).textContent =
+        formatBlogDate(
+            blog.date
+        );
+
+
+    document.getElementById(
+        "blogModalContent"
+    ).textContent =
+        blog.content;
+
+
+    document.getElementById(
+        "blogModalWhatsapp"
+    ).href =
+        getBlogWhatsAppLink(
+            blog
+        );
+
+
+    modal.classList.add(
+        "show"
+    );
+
+}
+
+
+/* =========================================================
+   10. CLOSE BLOG MODAL
+   ========================================================= */
+
+function closeMaganBlogModal() {
+
+    const modal =
+        document.getElementById(
+            "blogModal"
+        );
+
+
+    if (modal) {
+
+        modal.classList.remove(
+            "show"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   11. ADMIN LIST
+   ========================================================= */
+
+function renderBlogAdminList() {
+
+    const list =
+        document.getElementById(
+            "blogAdminList"
+        );
+
+
+    if (!list) {
+
+        return;
+
+    }
+
+
+    const blogs =
+        getMaganBlogs();
+
+
+    list.innerHTML = "";
+
+
+    if (blogs.length === 0) {
+
+        list.innerHTML =
+            "<p>No blogs available.</p>";
+
+        return;
+
+    }
+
+
+    blogs.forEach(
+        function (blog) {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "admin-blog-item";
+
+
+            item.innerHTML = `
+
+                <div
+                    class="admin-blog-info"
+                >
+
+                    <strong>
+                        ${escapeBlogHTML(
+                            blog.title
+                        )}
+                    </strong>
+
+                    <small>
+                        ${escapeBlogHTML(
+                            blog.category
+                        )}
+                        •
+                        ${formatBlogDate(
+                            blog.date
+                        )}
+                    </small>
+
+                </div>
+
+
+                <div
+                    class="admin-blog-actions"
+                >
+
+                    <button
+
+                        type="button"
+
+                        class="admin-edit-btn"
+
+                        data-edit-blog="${blog.id}"
+
+                    >
+                        ✏️ Edit
+                    </button>
+
+
+                    <button
+
+                        type="button"
+
+                        class="admin-delete-btn"
+
+                        data-delete-blog="${blog.id}"
+
+                    >
+                        🗑 Delete
+                    </button>
+
+                </div>
+
+            `;
+
+
+            list.appendChild(
+                item
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   12. CLEAR ADMIN FORM
+   ========================================================= */
+
+function clearBlogForm() {
+
+    const form =
+        document.getElementById(
+            "blogForm"
+        );
+
+
+    if (form) {
+
+        form.reset();
+
+    }
+
+
+    document.getElementById(
+        "blogEditId"
+    ).value = "";
+
+}
+
+
+/* =========================================================
+   13. CREATE BLOG
+   ========================================================= */
+
+function createMaganBlog(
+    blogData
+) {
+
+    const blogs =
+        getMaganBlogs();
+
+
+    const newBlog = {
+
+        id:
+            Date.now(),
+
+        title:
+            blogData.title,
+
+        category:
+            blogData.category,
+
+        date:
+            blogData.date,
+
+        image:
+            blogData.image,
+
+        description:
+            blogData.description,
+
+        content:
+            blogData.content
+
+    };
+
+
+    blogs.unshift(
+        newBlog
+    );
+
+
+    saveMaganBlogs(
+        blogs
+    );
+
+
+    return newBlog;
+
+}
+
+
+/* =========================================================
+   14. UPDATE BLOG
+   ========================================================= */
+
+function updateMaganBlog(
+    id,
+    blogData
+) {
+
+    const blogs =
+        getMaganBlogs();
+
+
+    const index =
+        blogs.findIndex(
+            function (blog) {
+
+                return (
+                    Number(blog.id) ===
+                    Number(id)
+                );
+
+            }
+        );
+
+
+    if (index === -1) {
+
+        return false;
+
+    }
+
+
+    blogs[index] = {
+
+        ...blogs[index],
+
+        title:
+            blogData.title,
+
+        category:
+            blogData.category,
+
+        date:
+            blogData.date,
+
+        image:
+            blogData.image,
+
+        description:
+            blogData.description,
+
+        content:
+            blogData.content
+
+    };
+
+
+    saveMaganBlogs(
+        blogs
+    );
+
+
+    return true;
+
+}
+
+
+/* =========================================================
+   15. DELETE BLOG
+   ========================================================= */
+
+function deleteMaganBlog(
+    id
+) {
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to delete this blog?"
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    const blogs =
+        getMaganBlogs();
+
+
+    const updated =
+        blogs.filter(
+            function (blog) {
+
+                return (
+                    Number(blog.id) !==
+                    Number(id)
+                );
+
+            }
+        );
+
+
+    saveMaganBlogs(
+        updated
+    );
+
+
+    filterMaganBlogs();
+
+    renderBlogAdminList();
+
+}
+
+
+/* =========================================================
+   16. EDIT BLOG
+   ========================================================= */
+
+function editMaganBlog(
+    id
+) {
+
+    const blogs =
+        getMaganBlogs();
+
+
+    const blog =
+        blogs.find(
+            function (item) {
+
+                return (
+                    Number(item.id) ===
+                    Number(id)
+                );
+
+            }
+        );
+
+
+    if (!blog) {
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "blogEditId"
+    ).value =
+        blog.id;
+
+
+    document.getElementById(
+        "blogTitle"
+    ).value =
+        blog.title;
+
+
+    document.getElementById(
+        "blogCategory"
+    ).value =
+        blog.category;
+
+
+    document.getElementById(
+        "blogDate"
+    ).value =
+        blog.date;
+
+
+    document.getElementById(
+        "blogImage"
+    ).value =
+        blog.image;
+
+
+    document.getElementById(
+        "blogDescription"
+    ).value =
+        blog.description;
+
+
+    document.getElementById(
+        "blogContent"
+    ).value =
+        blog.content;
+
+
+    document.getElementById(
+        "blogAdminPanel"
+    ).classList.add(
+        "show"
+    );
+
+
+    document.getElementById(
+        "blogTitle"
+    ).focus();
+
+}
+
+
+/* =========================================================
+   17. INITIALIZE BLOG SYSTEM
+   ========================================================= */
+
+function initializeMaganBlogSystem() {
+
+    /*
+     * Render default blogs
+     */
+
+    filterMaganBlogs();
+
+
+    /*
+     * Search
+     */
+
+    const searchInput =
+        document.getElementById(
+            "blogSearch"
+        );
+
+
+    if (searchInput) {
+
+        searchInput.addEventListener(
+            "input",
+            filterMaganBlogs
+        );
+
+    }
+
+
+    /*
+     * Category filter
+     */
+
+    document
+        .querySelectorAll(
+            ".blog-filter-btn"
+        )
+        .forEach(
+            function (button) {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        document
+                            .querySelectorAll(
+                                ".blog-filter-btn"
+                            )
+                            .forEach(
+                                function (btn) {
+
+                                    btn.classList.remove(
+                                        "active"
+                                    );
+
+                                }
+                            );
+
+
+                        button.classList.add(
+                            "active"
+                        );
+
+
+                        activeBlogCategory =
+                            button.dataset.category;
+
+
+                        filterMaganBlogs();
+
+                    }
+                );
+
+            }
+        );
+
+
+    /*
+     * Read More
+     */
+
+    document.addEventListener(
+        "click",
+        function (event) {
+
+            const button =
+                event.target.closest(
+                    "[data-blog-id]"
+                );
+
+
+            if (!button) {
+
+                return;
+
+            }
+
+
+            openMaganBlog(
+                button.dataset.blogId
+            );
+
+        }
+    );
+
+
+    /*
+     * Open Admin
+     */
+
+    const openAdmin =
+        document.getElementById(
+            "openBlogAdmin"
+        );
+
+
+    if (openAdmin) {
+
+        openAdmin.addEventListener(
+            "click",
+            function () {
+
+                /*
+                 * Demo admin access.
+                 *
+                 * For production use a real
+                 * backend authentication system.
+                 */
+
+                const password =
+                    prompt(
+                        "Enter Admin Password:"
+                    );
+
+
+                if (
+                    password !==
+                    "admin123"
+                ) {
+
+                    alert(
+                        "Incorrect admin password."
+                    );
+
+                    return;
+
+                }
+
+
+                document
+                    .getElementById(
+                        "blogAdminPanel"
+                    )
+                    .classList.add(
+                        "show"
+                    );
+
+
+                renderBlogAdminList();
+
+            }
+        );
+
+    }
+
+
+    /*
+     * Close Admin
+     */
+
+    const closeAdmin =
+        document.getElementById(
+            "closeBlogAdmin"
+        );
+
+
+    if (closeAdmin) {
+
+        closeAdmin.addEventListener(
+            "click",
+            function () {
+
+                document
+                    .getElementById(
+                        "blogAdminPanel"
+                    )
+                    .classList.remove(
+                        "show"
+                    );
+
+            }
+        );
+
+    }
+
+
+    /*
+     * Save Blog
+     */
+
+    const blogForm =
+        document.getElementById(
+            "blogForm"
+        );
+
+
+    if (blogForm) {
+
+        blogForm.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+
+                const editId =
+                    document.getElementById(
+                        "blogEditId"
+                    ).value;
+
+
+                const blogData = {
+
+                    title:
+                        document.getElementById(
+                            "blogTitle"
+                        ).value.trim(),
+
+                    category:
+                        document.getElementById(
+                            "blogCategory"
+                        ).value,
+
+                    date:
+                        document.getElementById(
+                            "blogDate"
+                        ).value,
+
+                    image:
+                        document.getElementById(
+                            "blogImage"
+                        ).value.trim(),
+
+                    description:
+                        document.getElementById(
+                            "blogDescription"
+                        ).value.trim(),
+
+                    content:
+                        document.getElementById(
+                            "blogContent"
+                        ).value.trim()
+
+                };
+
+
+                if (editId) {
+
+                    updateMaganBlog(
+                        editId,
+                        blogData
+                    );
+
+                    alert(
+                        "Blog updated successfully!"
+                    );
+
+                } else {
+
+                    createMaganBlog(
+                        blogData
+                    );
+
+                    alert(
+                        "Blog added successfully!"
+                    );
+
+                }
+
+
+                clearBlogForm();
+
+                filterMaganBlogs();
+
+                renderBlogAdminList();
+
+            }
+        );
+
+    }
+
+
+    /*
+     * Cancel Edit
+     */
+
+    const cancelEdit =
+        document.getElementById(
+            "cancelBlogEdit"
+        );
+
+
+    if (cancelEdit) {
+
+        cancelEdit.addEventListener(
+            "click",
+            clearBlogForm
+        );
+
+    }
+
+
+    /*
+     * Edit / Delete buttons
+     */
+
+    document.addEventListener(
+        "click",
+        function (event) {
+
+            const editButton =
+                event.target.closest(
+                    "[data-edit-blog]"
+                );
+
+
+            if (editButton) {
+
+                editMaganBlog(
+                    editButton.dataset
+                        .editBlog
+                );
+
+                return;
+
+            }
+
+
+            const deleteButton =
+                event.target.closest(
+                    "[data-delete-blog]"
+                );
+
+
+            if (deleteButton) {
+
+                deleteMaganBlog(
+                    deleteButton.dataset
+                        .deleteBlog
+                );
+
+            }
+
+        }
+    );
+
+
+    /*
+     * Close Blog Modal
+     */
+
+    const closeModal =
+        document.getElementById(
+            "closeBlogModal"
+        );
+
+
+    if (closeModal) {
+
+        closeModal.addEventListener(
+            "click",
+            closeMaganBlogModal
+        );
+
+    }
+
+
+    /*
+     * Click outside modal
+     */
+
+    const modal =
+        document.getElementById(
+            "blogModal"
+        );
+
+
+    if (modal) {
+
+        modal.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    event.target ===
+                    modal
+                ) {
+
+                    closeMaganBlogModal();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /*
+     * ESC closes modal
+     */
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key ===
+                "Escape"
+            ) {
+
+                closeMaganBlogModal();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   START BLOG SYSTEM
+   ========================================================= */
+
+if (
+    document.readyState ===
+    "loading"
+) {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        initializeMaganBlogSystem
+    );
+
+} else {
+
+    initializeMaganBlogSystem();
+
+}
